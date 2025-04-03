@@ -18,36 +18,44 @@ The infrastructure supports optional access to the private EC2 instance through 
 
 ---
 
+## Requirements & Installation
+
+This project can be run in either **WSL/Linux** or **Windows**.
+
+| Tool        | WSL/Linux Install                                | Windows Install                                         |
+|-------------|--------------------------------------------------|----------------------------------------------------------|
+| Terraform   | `sudo apt install terraform` *(via HashiCorp repo)* | [Install Terraform](https://developer.hashicorp.com/terraform/downloads) |
+| AWS CLI     | `sudo apt install awscli`                        | [Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) |
+| OpenSSL     | `sudo apt install openssl`                       | [Win64 OpenSSL](https://slproweb.com/products/Win32OpenSSL.html) → Add `bin/` to PATH |
+| Git         | `sudo apt install git`                           | [Git for Windows](https://git-scm.com/download/win)      |
+
+---
+
 ## Assumptions Made
 
 1. **NAT Gateway Required for Private Subnet**
-   - *Why:* The EC2 instance resides in a private subnet with no public IP.
-   - *Assumption:* A NAT Gateway is necessary to provide internet access so that `dnf install nginx` can succeed.
-   - *Based on:* The instructions imply NGINX must be installed but no public IP should be assigned.
+   - *Why:* The instance is in a private subnet, and does not have a public IP.
+   - A NAT Gateway is necessary to provide internet access so that `dnf install nginx` can succeed.
 
-2. **Optional Bastion Host for SSH Access**
-   - *Why:* To verify that NGINX and the EC2 instance are functioning correctly.
-   - *Assumption:* A bastion is a reasonable DevOps tool for SSH access to private instances and helps with debugging.
-   - *Based on:* The private instance is not publicly accessible, but testing/debugging may be required.
+2. **(Optional) Bastion Host for SSH Access**
+   - *Why:* SSH port access was mentioned but the instance is on a private subnet meaning SSH is not possible without further configuration.
+   - A bastion is a reasonable assumption here as I wanted to SSH into the instance to debug any issues.
 
 3. **HTTPS Termination at the ALB**
    - *Why:* To meet the requirement of a secure, browser-accessible web server.
-   - *Assumption:* A self-signed certificate is sufficient for verifying SSL setup.
-   - *Based on:* The exercise did not require a trusted CA-signed cert, only that SSL be in place.
+   - A self-signed certificate is sufficient for verifying SSL setup.
+   - The exercise did not require a trusted CA cert, only that SSL be in place. The browser may throw exceptions but this is expected behavior.
 
 4. **HTTP Redirect to HTTPS**
-   - *Why:* This is a standard security best practice to ensure all traffic is encrypted.
-   - *Assumption:* Allowed to go beyond base requirements to show awareness of best practices.
+   - *Why:* Added as best practice to ensure all traffic is encrypted.
 
-5. **Key Pair Must Be Provided by the User**
+5. **(Optional) Key Pair Must Be Provided by the User**
    - *Why:* To maintain security and avoid storing private keys in the repo.
-   - *Assumption:* Users familiar with SSH can provide a valid EC2 key for bastion access if needed.
-   - *Based on:* The instructions mention no public IP, implying secure access must be indirect.
+   - Users familiar with SSH can provide a valid EC2 key pair and jump host the bastion for access if opted in.
 
 6. **Certificate Created Locally Using Script**
    - *Why:* AWS ACM does not support uploading self-signed certs via Terraform directly.
-   - *Assumption:* It's acceptable to generate the cert locally via bash.
-   - *Based on:* Instructions align with methods shown in other public examples like [syuhas/terraform-devops](https://github.com/syuhas/terraform-devops).
+   - It's acceptable to generate the cert locally via bash (or ps1).
 
 ---
 

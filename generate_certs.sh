@@ -1,14 +1,6 @@
 # generate self-sigend certificate to terminate at the ALB
 
-# Usage: ./generate_certs.sh <domain_name>
-
-# Example: ./generate_certs.sh example.com
-
-# Check if the domain name is provided
-# if [ -z "$1" ]; then
-#   echo "Usage: $0 <domain_name>"
-#   exit 1
-# fi
+# Usage: ./generate_certs.sh
 
 # Set the domain name
 DOMAIN_NAME="localhost.localhost.com"
