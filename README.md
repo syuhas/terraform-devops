@@ -7,18 +7,18 @@ This project provisions secure infrastructure on AWS using Terraform to simulate
 The infrastructure supports optional access to the private EC2 instance through a bastion host if a valid key pair is provided. A self-signed SSL certificate is used to demonstrate HTTPS termination at the load balancer.
 
 ---
-- [Tools](##tools-used)
-- [Requirements](##requirements--installation)
-   - [AWS Permissions](###aws-permissions)
-   - [Bastion Host Configuration](###bastion-host-configuration)
+- [Tools](#tools-used)
+- [Requirements](#requirements--installation)
+   - [AWS Permissions](#aws-permissions)
+   - [Bastion Host Configuration](#bastion-host-configuration)
 - [Terraform Steps](#terraform-steps)
-   - [1. Clone Repo](##1-clone-the-repo)
-   - [2. Generate Self-Signed Ceritificate](##2-generate-self-signed-certificate)
-   - [3. Initialize Terraform](##3-initialize-terraform)
-   - [4. Deploy the Stack](##4-deploy-the-stack)
-   - [5. SSH Access (optional)](##5-ssh-access-if-enabled) 
+   - [1. Clone Repo](#1-clone-the-repo)
+   - [2. Generate Self-Signed Ceritificate](#2-generate-self-signed-certificate)
+   - [3. Initialize Terraform](#3-initialize-terraform)
+   - [4. Deploy the Stack](#4-deploy-the-stack)
+   - [5. SSH Access (optional)](#5-ssh-access-if-enabled) 
 - [Verification](#verification)
-- [Cleanup](##cleanup)
+- [Cleanup](#cleanup)
 ---
 
 ## 🤔 Assumptions Made
