@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('Generate Self-Signed Cert') {
       when {
-        expression { params.Options == 'Deploy' }
+        expression { params.Options == 'Deploy' || params.Options == 'Destroy' }
       }
       steps {
         sh '''
