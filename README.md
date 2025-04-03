@@ -8,7 +8,7 @@ The infrastructure supports optional access to the private EC2 instance through 
 
 ---
 
-## Assumptions Made
+## 🤔 Assumptions Made
 
 1. **NAT Gateway Required for Private Subnet**
    - *Why:* The instance is in a private subnet, and does not have a public IP.
@@ -36,7 +36,7 @@ The infrastructure supports optional access to the private EC2 instance through 
 
 ---
 
-## Tools Used
+## ⚒️ Tools Used
 
 - **Terraform** v1.11.3
 - **Amazon Linux 2023** AMI
@@ -46,7 +46,7 @@ The infrastructure supports optional access to the private EC2 instance through 
 
 ---
 
-## Requirements & Installation
+## ⚙️ Requirements & Installation
 
 This project can be run in either **WSL/Linux** or **Windows**.
 
@@ -95,16 +95,18 @@ export AWS_PROFILE=terraform-role
 Then continue with Terraform steps.
 
 ---
+---
+---
 
-# Terraform Instructions
+# 🚀 Terraform Instructions
 
-### 1. Clone the Repo
+## 1. Clone the Repo
 ```bash
 git clone https://github.com/syuhas/terraform-devops.git
 cd terraform-devops
 ```
 
-### 2. Create Key Pair and Configure Bastion (optional)
+## 2. Create Key Pair and Configure Bastion (optional)
 
 In order to use the optional Bastion host to SSH into the private instance, a `key pair` is required and `enable_bastion` flag will need to be set in the optional tfvars file.
 
@@ -140,7 +142,7 @@ enable_bastion = true
 key_pair_name  = "tfkey"
 ```
 
-### 2. Generate a Self-Signed Certificate
+## 3. Generate a Self-Signed Certificate
 
 Before deploying, run this to create your cert and key:
 #### WSL/Linux:
@@ -173,7 +175,7 @@ If `openssl` is not recognized:
 
 ---
 
-### 3. Initialize Terraform
+## 4. Initialize Terraform
 
 ```bash
 terraform init
@@ -181,24 +183,26 @@ terraform init
 
 ---
 
-### 3. Deploy the Stack
+## 5. Deploy the Stack
 
 #### Option A: No SSH / Bastion (Default)
 
 ```bash
-terraform apply -auto-approve
+terraform plan -out=plan.tfplan
+terraform apply plan.tfplan -auto-approve
 ```
 
 #### Option B: Enable Bastion Access
 
 Then apply:
 ```bash
-terraform apply -var-file="options.tfvars"
+terraform plan -out=plan.tfplan -var-file=options.tfvars
+terraform apply plan.tfplan
 ```
 
 ---
 
-## SSH Access (If Enabled)
+## 6. SSH Access (If Enabled)
 
 If `enable_bastion = true`, you can SSH into your private EC2 instance via the bastion host:
 
@@ -213,7 +217,34 @@ Or directly from your local machine using jump host syntax:
 ssh -i your-key.pem -J ec2-user@<bastion-ip> ec2-user@<private-ip>
 ```
 
+Additionally, you can configure ssh shortcuts for easier access.
+Create or edit ~/.ssh/config and add entries:
+
+```bash
+Host bastion
+  HostName <bastion-public-ip>
+  User ec2-user
+  IdentityFile ~/path/to/ec2.pem
+
+Host private-ec2
+  HostName <private-ip>
+  User ec2-user
+  IdentityFile ~/path/to/ec2.pem
+  ProxyJump bastion
+```
+
+Then ssh into the private instance using:
+
+```bash
+ssh private-ec2
+```
+
 ---
+---
+---
+
+# ✅ Verification
+
 
 ## Access the Web Server
 
