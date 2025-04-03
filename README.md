@@ -217,6 +217,8 @@ terraform init
 
 #### Option A: No SSH / Bastion (Default)
 
+For no Bastion access, plan the deployment and apply as follows without the tfvars file:
+
 ```bash
 terraform plan -out=plan.tfplan
 terraform apply plan.tfplan -auto-approve
@@ -224,7 +226,8 @@ terraform apply plan.tfplan -auto-approve
 
 #### Option B: Enable Bastion Access
 
-Then apply:
+If the tfvars file above has been configured, the `enable_bastion` is set to true, and a valid key pair is entered, plan and apply the following:
+
 ```bash
 terraform plan -out=plan.tfplan -var-file=options.tfvars
 terraform apply plan.tfplan
