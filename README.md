@@ -5,6 +5,8 @@
 
 This project provisions secure infrastructure on AWS using Terraform to simulate a real-world cloud deployment scenario. It includes a web server running in a private subnet, publicly accessible via an Application Load Balancer with HTTPS. Additional configuration was added to support installation of necessary packages and optional SSH access for debugging.
 
+WSL/Linux was used to perform all of the scripting and Terraform steps. I also included some instructions for Windows in case this will be run in from a Windows environment.
+
 The infrastructure supports optional access to the private EC2 instance through a bastion host if a valid key pair is provided. A self-signed SSL certificate is used to demonstrate HTTPS termination at the load balancer.
 
 <br><br>
