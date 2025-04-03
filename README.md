@@ -9,7 +9,7 @@ WSL/Linux was used to perform all of the scripting and Terraform steps. I also i
 
 The infrastructure supports optional access to the private EC2 instance through a bastion host if a valid key pair is provided. A self-signed SSL certificate is used to demonstrate HTTPS termination at the load balancer.
 
-In additional to deploying this locally, I also deployed this infrastructure with Jenkins as well. A brief overview of how I configured this is listed at the end of this exercised overview.
+In additional to deploying this locally, I deployed this infrastructure with Jenkins as well. A brief overview of how I configured this is listed at the end of this exercise overview.
 
 <br><br>
 ---
