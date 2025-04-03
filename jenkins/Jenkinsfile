@@ -2,29 +2,11 @@ pipeline {
   agent any
 
   environment {
-    AWS_REGION     = 'us-east-1'
-    AWS_ACCOUNT_ID = '551796573889'
-    TF_VAR_FILE    = 'options.tfvars'
-    CERT_SCRIPT    = './generate_certs.sh'
-    TF_BUCKET      = 'terraform-lock-bucket'
-    TF_DDB_TABLE   = 'terraform-lock-table'
-    TF_BACKEND_KEY = 'devops-challenge/terraform.tfstate'
-  }
-
-  options {
-    skipDefaultCheckout()
+    TF_VAR_FILE = 'options.tfvars'
+    CERT_SCRIPT = './generate_certs.sh'
   }
 
   stages {
-    stage('Checkout') {
-      when {
-        branch 'main'
-      }
-      steps {
-        checkout scm
-      }
-    }
-
     stage('Generate Self-Signed Cert') {
       steps {
         sh '''
@@ -36,13 +18,7 @@ pipeline {
 
     stage('Terraform Init') {
       steps {
-        sh """
-          terraform init \
-            -backend-config=\"bucket=${TF_BUCKET}\" \
-            -backend-config=\"key=${TF_BACKEND_KEY}\" \
-            -backend-config=\"region=${AWS_REGION}\" \
-            -backend-config=\"dynamodb_table=${TF_DDB_TABLE}\"
-        """
+        sh 'terraform init'
       }
     }
 

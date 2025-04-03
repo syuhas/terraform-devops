@@ -3,6 +3,15 @@ provider "aws" {
 }
 
 
+terraform {
+  backend "s3" {
+    bucket         = "terraform-lock-bucket"
+    key            = "devops-challenge/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-lock-table"
+  }
+}
+
 ########################################## VPC ##########################################
 # vpc with cidr block of 10.0.0.0/16, allowing for up to 65536 IP addresses
 # and enabling DNS support and hostnames
