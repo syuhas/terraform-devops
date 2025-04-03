@@ -4,3 +4,9 @@
 .terraform/
 .terraform-version
 *.tfplan
+certs
+/certs/*
+certs/*
+*.pem
+*.crt
+*.key
