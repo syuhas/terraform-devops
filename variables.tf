@@ -1,5 +1,5 @@
 variable "project" {
-    default = "devops-exercise"
+    default = "devops-exercise-jenkins"
 }
 
 variable "aws_region" {

@@ -1,6 +1,7 @@
 pipeline {
   agent any
 
+
   environment {
     TF_VAR_FILE = 'options.tfvars'
     CERT_SCRIPT = './generate_certs.sh'
@@ -8,6 +9,9 @@ pipeline {
 
   stages {
     stage('Generate Self-Signed Cert') {
+      when {
+        expression { params.Options == 'Deploy' }
+      }
       steps {
         sh '''
           chmod +x ${CERT_SCRIPT}
@@ -23,14 +27,29 @@ pipeline {
     }
 
     stage('Terraform Plan') {
+      when {
+        expression { params.Options == 'Deploy' }
+      }
       steps {
         sh 'terraform plan -var-file=${TF_VAR_FILE} -out=tfplan'
       }
     }
 
     stage('Terraform Apply') {
+      when {
+        expression { params.Options == 'Deploy' }
+      }
       steps {
         sh 'terraform apply -auto-approve tfplan'
+      }
+    }
+
+    stage('Terraform Destroy') {
+      when {
+        expression { params.Options == 'Destroy' }
+      }
+      steps {
+        sh 'terraform destroy -var-file=${TF_VAR_FILE} -auto-approve'
       }
     }
   }
