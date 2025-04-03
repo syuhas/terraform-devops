@@ -28,12 +28,41 @@ This project can be run in either **WSL/Linux** or **Windows**.
 |    | `echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \| sudo tee /etc/apt/sources.list.d/hashicorp.list` | - |
 |    | `sudo apt update && sudo apt install terraform` | - |
 | AWS CLI     | `curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"` | [Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) |
-|    | `curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"` | - |
 |    | `unzip awscliv2.zip` | - |
 |    | `sudo ./aws/install` | - |
 |    | (update)`sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update` | - |
 | OpenSSL     | `sudo apt install openssl` | [Win64 OpenSSL](https://slproweb.com/products/Win32OpenSSL.html) → Add `bin/` to PATH |
 | Git         | `sudo apt install git` | [Git for Windows](https://git-scm.com/download/win)      |
+
+### AWS Permissions
+
+An AWS user (or role) will need to be utilized via the CLI in order to use Terraform locally. I have included both a scoped policy and a broader policy (iam_policies/scoped_policy.json, iam_policies/broad_policy.json). Create an inline or managed policy with either of policy jsons.
+
+#### Option A: Configure User Directly
+To configure user locally:
+
+```bash
+aws configure
+```
+
+Enter AWS Access Key ID, AWS Secret Access Key, Default Region Name (us-east-1) and Default Output Format (leave blank or json).
+
+#### Option B: Assume IAM Role Locally
+
+Add to ~/.aws/config
+
+```bash
+[profile terraform-role]
+role_arn = arn:aws:iam::123456789012:role/MyTerraformRole
+source_profile = base-user
+region = us-east-1
+```
+
+```bash
+export AWS_PROFILE=terraform-role
+```
+
+Then continue with Terraform steps.
 
 ---
 
@@ -47,31 +76,38 @@ This project can be run in either **WSL/Linux** or **Windows**.
    - *Why:* SSH port access was mentioned but the instance is on a private subnet meaning SSH is not possible without further configuration.
    - A bastion is a reasonable assumption here as I wanted to SSH into the instance to debug any issues.
 
-3. **HTTPS Termination at the ALB**
-   - *Why:* To meet the requirement of a secure, browser-accessible web server.
-   - A self-signed certificate is sufficient for verifying SSL setup.
-   - The exercise did not require a trusted CA cert, only that SSL be in place. The browser may throw exceptions but this is expected behavior.
-
-4. **HTTP Redirect to HTTPS**
+3. **HTTP Redirect to HTTPS**
    - *Why:* Added as best practice to ensure all traffic is encrypted.
 
-5. **(Optional) Key Pair Must Be Provided by the User**
+4. **(Optional) Key Pair Must Be Provided by the User**
    - *Why:* To maintain security and avoid storing private keys in the repo.
-   - Users familiar with SSH can provide a valid EC2 key pair and jump host the bastion for access if opted in.
+   - A valid EC2 key pair can be provided to jump host through the bastion into the instance for access (if opted in).
 
-6. **Certificate Created Locally Using Script**
+5. **Certificate Created Locally Using Script**
    - *Why:* AWS ACM does not support uploading self-signed certs via Terraform directly.
-   - It's acceptable to generate the cert locally via bash (or ps1).
+   - The exercise did not require a trusted CA cert, only that SSL be in place. The browser may throw exceptions but this is expected behavior.
 
 ---
 
 ## Installation & Usage
 
-### 1. Generate a Self-Signed Certificate
+### 1. Clone the Repo
+```bash
+git clone https://github.com/syuhas/terraform-devops.git
+cd terraform-devops
+```
+
+### 2. Generate a Self-Signed Certificate
 
 Before deploying, run this to create your cert and key:
+#### WSL/Linux:
 ```bash
 ./generate_certs.sh
+```
+
+#### Windows (PowerShell):
+```powershell
+./generate_certs_windows.ps1
 ```
 
 This will create:
@@ -80,9 +116,19 @@ This will create:
 
 These files are used to simulate HTTPS termination on the ALB.
 
+#### PowerShell Script Notes:
+If the script doesn't run due to execution policy:
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+If `openssl` is not recognized:
+- Ensure OpenSSL is installed (use [Win64 OpenSSL](https://slproweb.com/products/Win32OpenSSL.html))
+- Add the `bin` folder to your system PATH (e.g., `C:\Program Files\OpenSSL-Win64\bin`)
+
 ---
 
-### 2. Initialize Terraform
+### 3. Initialize Terraform
 
 ```bash
 terraform init
