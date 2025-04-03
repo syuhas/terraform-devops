@@ -391,7 +391,7 @@ If `openssl` is not recognized:
 ---
 <br><br><br><br>
 
-## Bonus Section - Deploying with Jenkins
+## Bonus Section: Deploying with Jenkins
 
 I decided to also go ahead and try deploying this setup with Jenkins just to test out the functionality and make testing easier. Check out the Jenkinsfile and configuration for the backend states in the `jenkins` branch of this repository.
 - [Jenkins Branch](https://github.com/syuhas/terraform-devops/tree/jenkins)
