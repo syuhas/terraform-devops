@@ -298,6 +298,12 @@ ssh private-ec2
 
 ## Access the Web Server
 
+Get the load balancer DNS name from the Terraform output or from the deployed load balancer on AWS.
+
+![Outputs](https://github.com/user-attachments/assets/4b3c242e-d665-41db-966d-c0509572c20d)
+
+![chrome_nxnTdMfPVz](https://github.com/user-attachments/assets/8ccd596e-408b-439c-9e46-204581e98558)
+
 ### Via Browser:
 Navigate to:
 ```
