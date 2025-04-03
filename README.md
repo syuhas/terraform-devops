@@ -187,17 +187,7 @@ This will create:
 
 These files are used to simulate HTTPS termination on the ALB.
 
----
-
-#### PowerShell Script Notes:
-If the script doesn't run due to execution policy:
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-```
-
-If `openssl` is not recognized:
-- Ensure OpenSSL is installed (use [Win64 OpenSSL](https://slproweb.com/products/Win32OpenSSL.html))
-- Add the `bin` folder to your system PATH (e.g., `C:\Program Files\OpenSSL-Win64\bin`)
+\*\* [PowerShell Script Troubleshooting](#powershell-script-notes)
 
 ---
 
@@ -339,3 +329,15 @@ Make sure to delete your `.pem` key file and clean up any generated certs after 
 - SSL setup uses a realistic ALB-terminated pattern for modern web architectures.
 
 - [Back To Top](#table-of-contents)
+
+
+
+#### PowerShell Script Notes:
+If the script doesn't run due to execution policy:
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+If `openssl` is not recognized:
+- Ensure OpenSSL is installed (use [Win64 OpenSSL](https://slproweb.com/products/Win32OpenSSL.html))
+- Add the `bin` folder to your system PATH (e.g., `C:\Program Files\OpenSSL-Win64\bin`)
