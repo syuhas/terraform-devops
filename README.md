@@ -167,7 +167,7 @@ enable_bastion = true
 key_pair_name  = "tfkey"
 ```
 
-####[Back To Top](#table-of-contents)
+[Back To Top](#table-of-contents)
 
 ---
 
@@ -376,4 +376,4 @@ If `openssl` is not recognized:
 - Ensure OpenSSL is installed (use [Win64 OpenSSL](https://slproweb.com/products/Win32OpenSSL.html))
 - Add the `bin` folder to your system PATH (e.g., `C:\Program Files\OpenSSL-Win64\bin`)
 
-####[Back To Top](#table-of-contents)
+[Back To Top](#table-of-contents)
