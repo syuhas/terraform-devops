@@ -1,0 +1,67 @@
+pipeline {
+  agent any
+
+  environment {
+    AWS_REGION     = 'us-east-1'
+    AWS_ACCOUNT_ID = '551796573889'
+    TF_VAR_FILE    = 'options.tfvars'
+    CERT_SCRIPT    = './generate_certs.sh'
+    TF_BUCKET      = 'terraform-lock-bucket'
+    TF_DDB_TABLE   = 'terraform-lock-table'
+    TF_BACKEND_KEY = 'devops-challenge/terraform.tfstate'
+  }
+
+  options {
+    skipDefaultCheckout()
+  }
+
+  stages {
+    stage('Checkout') {
+      when {
+        branch 'main'
+      }
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Generate Self-Signed Cert') {
+      steps {
+        sh '''
+          chmod +x ${CERT_SCRIPT}
+          ${CERT_SCRIPT}
+        '''
+      }
+    }
+
+    stage('Terraform Init') {
+      steps {
+        sh """
+          terraform init \
+            -backend-config=\"bucket=${TF_BUCKET}\" \
+            -backend-config=\"key=${TF_BACKEND_KEY}\" \
+            -backend-config=\"region=${AWS_REGION}\" \
+            -backend-config=\"dynamodb_table=${TF_DDB_TABLE}\"
+        """
+      }
+    }
+
+    stage('Terraform Plan') {
+      steps {
+        sh 'terraform plan -var-file=${TF_VAR_FILE} -out=tfplan'
+      }
+    }
+
+    stage('Terraform Apply') {
+      steps {
+        sh 'terraform apply -auto-approve tfplan'
+      }
+    }
+  }
+
+  post {
+    always {
+      cleanWs()
+    }
+  }
+}
