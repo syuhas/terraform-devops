@@ -27,13 +27,13 @@ This project can be run in either **WSL/Linux** or **Windows**.
 | Terraform   | `wget -O - https://apt.releases.hashicorp.com/gpg \| sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg` | [Install Terraform](https://developer.hashicorp.com/terraform/downloads) |
 |    | `echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \| sudo tee /etc/apt/sources.list.d/hashicorp.list` | - |
 |    | `sudo apt update && sudo apt install terraform` | - |
-| AWS CLI     | `sudo apt install awscli`                        | [Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) |
+| AWS CLI     | `curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"` | [Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) |
 |    | `curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"` | - |
 |    | `unzip awscliv2.zip` | - |
 |    | `sudo ./aws/install` | - |
 |    | (update)`sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update` | - |
-| OpenSSL     | `sudo apt install openssl`                       | [Win64 OpenSSL](https://slproweb.com/products/Win32OpenSSL.html) → Add `bin/` to PATH |
-| Git         | `sudo apt install git`                           | [Git for Windows](https://git-scm.com/download/win)      |
+| OpenSSL     | `sudo apt install openssl` | [Win64 OpenSSL](https://slproweb.com/products/Win32OpenSSL.html) → Add `bin/` to PATH |
+| Git         | `sudo apt install git` | [Git for Windows](https://git-scm.com/download/win)      |
 
 ---
 
