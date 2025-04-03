@@ -198,6 +198,7 @@ Then apply:
 terraform plan -out=plan.tfplan -var-file=options.tfvars
 terraform apply plan.tfplan
 ```
+![Terraform Apply](https://github.com/user-attachments/assets/94f58d7f-fdd7-4d13-bdaf-a5102d1f24c5)
 
 ---
 
@@ -238,6 +239,8 @@ Then ssh into the private instance using:
 ssh private-ec2
 ```
 
+![SSH](https://github.com/user-attachments/assets/2f037d0c-f33d-4ccf-be21-9dc1abbfb710)
+
 ---
 ---
 
@@ -252,6 +255,8 @@ Navigate to:
 https://<alb-dns-name>
 ```
 
+![Browser](https://github.com/user-attachments/assets/e7e4a50a-31d2-4379-8fa6-e481afc3b87e)
+
 - You will see a self-signed certificate warning — this is expected.
 - Continue through the warning to view the styled NGINX welcome page.
 
@@ -260,11 +265,29 @@ https://<alb-dns-name>
 curl -vk https://<alb-dns-name>
 ```
 
+![Curl](https://github.com/user-attachments/assets/503628bd-dd73-4052-bcf8-6bd0e4a2c069)
+
+
 You should see:
 - HTTP/1.1 200 OK
 - Content from your custom NGINX index page
 
 ---
+
+## View Resources in AWS
+
+All resources should now have been successfully deployed to AWS. Pictures for reference.
+![Certs](https://github.com/user-attachments/assets/e6a30010-b9de-4b8b-9396-c3f458044446)
+
+![SG](https://github.com/user-attachments/assets/a9812964-06f7-4782-99af-2773dea50065)
+
+![LB](https://github.com/user-attachments/assets/4840987b-cb7c-4c53-aa66-1c25c4f043b1)
+
+![chrome_eFR9aLFOka](https://github.com/user-attachments/assets/f941eb29-9569-42cc-9739-1b53bfc040bc)
+
+![VPC](https://github.com/user-attachments/assets/1c6faa9b-6f4f-431f-931c-2353390cb96d)
+
+![EC2](https://github.com/user-attachments/assets/7f83fe41-7dc8-468e-b799-b06585523548)
 
 ## 🧹 Cleanup
 
