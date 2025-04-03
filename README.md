@@ -24,8 +24,10 @@ This project can be run in either **WSL/Linux** or **Windows**.
 
 | Tool        | WSL/Linux Install                                | Windows Install                                         |
 |-------------|--------------------------------------------------|----------------------------------------------------------|
-| Terraform   | `sudo apt install terraform` *(via HashiCorp repo)* | [Install Terraform](https://developer.hashicorp.com/terraform/downloads) |
-| AWS CLI     | `sudo apt install awscli`                        | [Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) |
+| Terraform   | `wget -O - https://apt.releases.hashicorp.com/gpg \| sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg` | [Install Terraform](https://developer.hashicorp.com/terraform/downloads) |
+|    | `echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \| sudo tee /etc/apt/sources.list.d/hashicorp.list` |  |
+|    | `sudo apt update && sudo apt install terraform` |  |
+| AWS CLI     | `sudo apt install awscli`                        | [Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) |
 | OpenSSL     | `sudo apt install openssl`                       | [Win64 OpenSSL](https://slproweb.com/products/Win32OpenSSL.html) → Add `bin/` to PATH |
 | Git         | `sudo apt install git`                           | [Git for Windows](https://git-scm.com/download/win)      |
 
