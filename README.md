@@ -378,6 +378,7 @@ Make sure to delete your `.pem` key file and clean up any generated certs after 
 
 
 ---
+[Back To Top](#table-of-contents)
 <br><br><br><br>
 
 
@@ -395,9 +396,10 @@ If `openssl` is not recognized:
 
 ---
 
-[Back To Top](#table-of-contents)
 ---
+[Back To Top](#table-of-contents)
 <br><br><br><br>
+
 
 ## Bonus Section: Deploying with Jenkins
 
