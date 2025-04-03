@@ -61,7 +61,8 @@ The infrastructure supports optional access to the private EC2 instance through 
 - **OpenSSL** (used to generate the self-signed certificate)
 - **GitHub** (source-controlled infrastructure)
 
-- [Back To Top](#table-of-contents)
+
+[Back To Top](#table-of-contents)
 ---
 
 ## ⚙️ 
@@ -114,7 +115,7 @@ export AWS_PROFILE=terraform-role
 
 Then continue with Terraform steps.
 
-- [Back To Top](#table-of-contents)
+[Back To Top](#table-of-contents)
 ---
 
  
@@ -155,7 +156,7 @@ enable_bastion = true
 key_pair_name  = "tfkey"
 ```
 
-- [Back To Top](#table-of-contents)
+[Back To Top](#table-of-contents)
 ---
 ---
 
@@ -290,7 +291,7 @@ You should see:
 - HTTP/1.1 200 OK
 - Content from your custom NGINX index page
 
-- [Back To Top](#table-of-contents)
+[Back To Top](#table-of-contents)
 ---
 
 ## View Resources in AWS
@@ -328,7 +329,10 @@ Make sure to delete your `.pem` key file and clean up any generated certs after 
 - All modules are configurable, optional features like bastion access are toggleable.
 - SSL setup uses a realistic ALB-terminated pattern for modern web architectures.
 
-- [Back To Top](#table-of-contents)
+
+
+
+
 
 
 
@@ -341,3 +345,5 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 If `openssl` is not recognized:
 - Ensure OpenSSL is installed (use [Win64 OpenSSL](https://slproweb.com/products/Win32OpenSSL.html))
 - Add the `bin` folder to your system PATH (e.g., `C:\Program Files\OpenSSL-Win64\bin`)
+
+[Back To Top](#table-of-contents)
