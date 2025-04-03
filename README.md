@@ -229,9 +229,12 @@ Then apply:
 terraform plan -out=plan.tfplan -var-file=options.tfvars
 terraform apply plan.tfplan
 ```
+
+**Deployment in Progress**
+
 ![Terraform Apply](https://github.com/user-attachments/assets/94f58d7f-fdd7-4d13-bdaf-a5102d1f24c5)
 
-**Required Outputs**
+**Required Outputs Displayed in Console**
 
 ![Outputs](https://github.com/user-attachments/assets/ae860aae-bc7c-4dfe-b01d-2b10eaaa77c5)
 
