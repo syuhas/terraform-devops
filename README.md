@@ -95,17 +95,9 @@ export AWS_PROFILE=terraform-role
 Then continue with Terraform steps.
 
 ---
----
 
-# 🚀 Terraform Instructions
 
-## 1. Clone the Repo
-```bash
-git clone https://github.com/syuhas/terraform-devops.git
-cd terraform-devops
-```
-
-## 2. Create Key Pair and Configure Bastion (optional)
+### 🔑 Bastion Host Configuration (optional)
 
 In order to use the optional Bastion host to SSH into the private instance, a `key pair` is required and `enable_bastion` flag will need to be set in the optional tfvars file.
 
@@ -141,7 +133,19 @@ enable_bastion = true
 key_pair_name  = "tfkey"
 ```
 
-## 3. Generate a Self-Signed Certificate
+
+---
+---
+
+# 🚀 Terraform Instructions
+
+## 1. Clone the Repo
+```bash
+git clone https://github.com/syuhas/terraform-devops.git
+cd terraform-devops
+```
+
+## 2. Generate a Self-Signed Certificate
 
 Before deploying, run this to create your cert and key:
 #### WSL/Linux:
@@ -174,7 +178,7 @@ If `openssl` is not recognized:
 
 ---
 
-## 4. Initialize Terraform
+## 3. Initialize Terraform
 
 ```bash
 terraform init
@@ -182,7 +186,7 @@ terraform init
 
 ---
 
-## 5. Deploy the Stack
+## 4. Deploy the Stack
 
 #### Option A: No SSH / Bastion (Default)
 
@@ -202,7 +206,7 @@ terraform apply plan.tfplan
 
 ---
 
-## 6. SSH Access (If Enabled)
+## 5. SSH Access (If Enabled)
 
 If `enable_bastion = true`, you can SSH into your private EC2 instance via the bastion host:
 
