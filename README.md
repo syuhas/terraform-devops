@@ -1,10 +1,38 @@
-# DevOps Infrastructure Challenge – Secure VPC with HTTPS Load Balancer and Private Web Server
+# DevOps Infrastructure Exercise – Secure VPC with HTTPS Load Balancer and Private Web Server
 
 ## Overview
 
 This project provisions secure infrastructure on AWS using Terraform to simulate a real-world cloud deployment scenario. It includes a web server running in a private subnet, publicly accessible via an Application Load Balancer with HTTPS. Additional configuration was added to support installation of necessary packages and optional SSH access for debugging.
 
 The infrastructure supports optional access to the private EC2 instance through a bastion host if a valid key pair is provided. A self-signed SSL certificate is used to demonstrate HTTPS termination at the load balancer.
+
+---
+
+## Assumptions Made
+
+1. **NAT Gateway Required for Private Subnet**
+   - *Why:* The instance is in a private subnet, and does not have a public IP.
+   - A NAT Gateway is necessary to provide internet access so that `dnf install nginx` can succeed.
+
+2. **(Optional) Bastion Host for SSH Access**
+   - *Why:* SSH port access was mentioned but the instance is on a private subnet meaning SSH is not possible without further configuration.
+   - A bastion is a reasonable assumption here as I wanted to SSH into the instance to debug any issues.
+
+3. **HTTP Redirect to HTTPS**
+   - *Why:* Added as best practice to ensure all traffic is encrypted.
+
+4. **(Optional) Key Pair Must Be Provided by the User**
+   - *Why:* To maintain security and avoid storing private keys in the repo.
+   - A valid EC2 key pair can be provided to jump host through the bastion into the instance for access (if opted in).
+
+5. **Certificate Created Locally Using Script**
+   - *Why:* AWS ACM does not support uploading self-signed certs via Terraform directly.
+   - The exercise did not require a trusted CA cert, only that SSL be in place. The browser may throw exceptions but this is expected behavior.
+
+6. **AWS Permissions are Setup**
+   - *Why:* The exercise does not explicitly mention configuring an IAM user or specifying permissions required to run the infrastructure.
+   - It is assumed that the user running this has appropriate AWS credentials configured and the necessary permissions.
+   - However, to ensure completeness, I have included both broad and scoped IAM policies that can be used to create a user or role with the minimum required permissions to get started.
 
 ---
 
@@ -34,9 +62,11 @@ This project can be run in either **WSL/Linux** or **Windows**.
 | OpenSSL     | `sudo apt install openssl` | [Win64 OpenSSL](https://slproweb.com/products/Win32OpenSSL.html) → Add `bin/` to PATH |
 | Git         | `sudo apt install git` | [Git for Windows](https://git-scm.com/download/win)      |
 
+---
+
 ### AWS Permissions
 
-An AWS user (or role) will need to be utilized via the CLI in order to use Terraform locally. I have included both a scoped policy and a broader policy (iam_policies/scoped_policy.json, iam_policies/broad_policy.json). Create an inline or managed policy with either of policy jsons.
+An AWS user (or role) will need to be utilized via the CLI in order to use Terraform locally. I have included both a scoped policy and a broader policy (iam_policies/scoped_policy.json, iam_policies/broad_policy.json). Create an inline or managed policy with either of policy jsons and attach to the resource. (**NOTE** In production, these would be conditionally scoped further to align with least priviledge, but for testing the policies are both scoped to all resources.)
 
 #### Option A: Configure User Directly
 To configure user locally:
@@ -66,35 +96,48 @@ Then continue with Terraform steps.
 
 ---
 
-## Assumptions Made
-
-1. **NAT Gateway Required for Private Subnet**
-   - *Why:* The instance is in a private subnet, and does not have a public IP.
-   - A NAT Gateway is necessary to provide internet access so that `dnf install nginx` can succeed.
-
-2. **(Optional) Bastion Host for SSH Access**
-   - *Why:* SSH port access was mentioned but the instance is on a private subnet meaning SSH is not possible without further configuration.
-   - A bastion is a reasonable assumption here as I wanted to SSH into the instance to debug any issues.
-
-3. **HTTP Redirect to HTTPS**
-   - *Why:* Added as best practice to ensure all traffic is encrypted.
-
-4. **(Optional) Key Pair Must Be Provided by the User**
-   - *Why:* To maintain security and avoid storing private keys in the repo.
-   - A valid EC2 key pair can be provided to jump host through the bastion into the instance for access (if opted in).
-
-5. **Certificate Created Locally Using Script**
-   - *Why:* AWS ACM does not support uploading self-signed certs via Terraform directly.
-   - The exercise did not require a trusted CA cert, only that SSL be in place. The browser may throw exceptions but this is expected behavior.
-
----
-
-## Installation & Usage
+# Terraform Instructions
 
 ### 1. Clone the Repo
 ```bash
 git clone https://github.com/syuhas/terraform-devops.git
 cd terraform-devops
+```
+
+### 2. Create Key Pair and Configure Bastion (optional)
+
+In order to use the optional Bastion host to SSH into the private instance, a `key pair` is required and `enable_bastion` flag will need to be set in the optional tfvars file.
+
+**In the Console**:
+
+- Navigate to `EC2` > `Key Pairs` > `Create Key Pair`
+- Enter a `Key Pair Name`
+- Choose `RSA` type encryption
+- Choose `pem` format
+- Click `Create Key Pair` and save key pair to desired location locally
+
+**In the CLI**: 
+
+Using WSL/Linux (or if jq installed on Windows):
+
+```bash
+aws ec2 create-key-pair --key-name "tfkey" --key-type "rsa" --key-format "pem" | jq -r .KeyMaterial > tfkey.pem
+```
+
+OR 
+
+Using Windows:
+
+```powershell
+$key = aws ec2 create-key-pair --key-name "tfkey" --key-type "rsa" --key-format "pem" | ConvertFrom-Json
+$key.KeyMaterial | Out-File -Encoding ascii -FilePath tfkey.pem
+```
+
+Edit or create new `options.tfvars` at the project base directory:
+
+```bash
+enable_bastion = true
+key_pair_name  = "tfkey"
 ```
 
 ### 2. Generate a Self-Signed Certificate
@@ -115,6 +158,8 @@ This will create:
 - `certs/localhost.localhost.com.key`
 
 These files are used to simulate HTTPS termination on the ALB.
+
+---
 
 #### PowerShell Script Notes:
 If the script doesn't run due to execution policy:
@@ -139,16 +184,12 @@ terraform init
 ### 3. Deploy the Stack
 
 #### Option A: No SSH / Bastion (Default)
+
 ```bash
 terraform apply -auto-approve
 ```
 
 #### Option B: Enable Bastion Access
-Edit or create `options.tfvars`:
-```hcl
-enable_bastion = true
-key_pair_name  = "your-aws-key-name"
-```
 
 Then apply:
 ```bash

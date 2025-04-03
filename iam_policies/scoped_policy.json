@@ -19,7 +19,11 @@
           "ec2:AuthorizeSecurityGroupEgress",
           "ec2:CreateTags",
           "ec2:DeleteTags",
-          "ec2:Describe*"
+          "ec2:Describe*",
+          "ec2:CreateKeyPair",
+          "ec2:DeleteKeyPair",
+          "ec2:DescribeKeyPairs",
+          "ec2:ImportKeyPair"
         ],
         "Resource": "*"
       },
