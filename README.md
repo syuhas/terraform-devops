@@ -1,10 +1,12 @@
 # DevOps Infrastructure Exercise – Secure VPC with HTTPS Load Balancer and Private Web Server
 
+
 ## Overview
 
 This project provisions secure infrastructure on AWS using Terraform to simulate a real-world cloud deployment scenario. It includes a web server running in a private subnet, publicly accessible via an Application Load Balancer with HTTPS. Additional configuration was added to support installation of necessary packages and optional SSH access for debugging.
 
 The infrastructure supports optional access to the private EC2 instance through a bastion host if a valid key pair is provided. A self-signed SSL certificate is used to demonstrate HTTPS termination at the load balancer.
+
 
 ---
 ## Table of Contents
@@ -22,6 +24,7 @@ The infrastructure supports optional access to the private EC2 instance through 
 - [Verification](#verification)
 - [Cleanup](#cleanup)
 ---
+
 
 ## Assumptions Made
 
@@ -51,6 +54,8 @@ The infrastructure supports optional access to the private EC2 instance through 
 
 ---
 
+
+
 ## Tools Used
 
 - **Terraform** v1.11.3
@@ -61,6 +66,9 @@ The infrastructure supports optional access to the private EC2 instance through 
 
 
 [Back To Top](#table-of-contents)
+
+
+
 
 ---
 
@@ -81,6 +89,9 @@ This project can be run in either **WSL/Linux** or **Windows**.
 | Git         | `sudo apt install git` | [Git for Windows](https://git-scm.com/download/win)      |
 
 ---
+
+
+
 
 ### AWS Permissions
 
@@ -116,9 +127,11 @@ Then continue with Terraform steps.
 
 ---
 
+
+
+
  
 ### Bastion Host Configuration (optional)
-### 🛠️
 
 In order to use the optional Bastion host to SSH into the private instance, a `key pair` is required and `enable_bastion` flag will need to be set in the optional tfvars file.
 
@@ -158,6 +171,12 @@ key_pair_name  = "tfkey"
 
 ---
 ---
+
+
+
+
+
+
 
 # Terraform Steps
 
@@ -262,7 +281,15 @@ ssh private-ec2
 ---
 ---
 
+
+
+
+
+
 # Verification 
+
+
+
 
 ## Access the Web Server
 
@@ -293,6 +320,9 @@ You should see:
 
 ---
 
+
+
+
 ## View Resources in AWS
 
 All resources should now have been successfully deployed to AWS. Pictures for reference.
@@ -309,6 +339,9 @@ All resources should now have been successfully deployed to AWS. Pictures for re
 ![EC2](https://github.com/user-attachments/assets/7f83fe41-7dc8-468e-b799-b06585523548)
 
 [Back To Top](#table-of-contents)
+
+
+
 
 
 ## Cleanup
