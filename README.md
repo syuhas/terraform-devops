@@ -14,7 +14,7 @@ The infrastructure supports optional access to the private EC2 instance through 
 - [Tools Used](#tools-used)
 - [Requirements & Installation](#requirements--installation)
   - [AWS Permissions](#aws-permissions)
-  - [Bastion Host Configuration (optional](#bastion-host-configuration-optional)
+  - [Bastion Host Configuration (optional)](#bastion-host-configuration-optional)
 - [Terraform Steps](#terraform-steps)
   - [1. Clone the Repo](#1-clone-the-repo)
   - [2. Generate Self-Signed Certificate](#2-generate-self-signed-certificate)
