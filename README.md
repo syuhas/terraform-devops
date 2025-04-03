@@ -7,7 +7,7 @@ This project provisions secure infrastructure on AWS using Terraform to simulate
 
 The infrastructure supports optional access to the private EC2 instance through a bastion host if a valid key pair is provided. A self-signed SSL certificate is used to demonstrate HTTPS termination at the load balancer.
 
-
+<br><br>
 ---
 ## Table of Contents
 
@@ -24,7 +24,7 @@ The infrastructure supports optional access to the private EC2 instance through 
 - [Verification](#verification)
 - [Cleanup](#cleanup)
 ---
-
+<br><br>
 
 ## Assumptions Made
 
@@ -53,7 +53,7 @@ The infrastructure supports optional access to the private EC2 instance through 
    - However, to ensure completeness, I have included both broad and scoped IAM policies that can be used to create a user or role with the minimum required permissions to get started.
 
 ---
-
+<br><br><br><br>
 
 
 ## Tools Used
@@ -89,7 +89,7 @@ This project can be run in either **WSL/Linux** or **Windows**.
 | Git         | `sudo apt install git` | [Git for Windows](https://git-scm.com/download/win)      |
 
 ---
-
+<br><br><br><br>
 
 
 
@@ -126,7 +126,7 @@ Then continue with Terraform steps.
 [Back To Top](#table-of-contents)
 
 ---
-
+<br><br><br><br>
 
 
 
@@ -170,7 +170,7 @@ key_pair_name  = "tfkey"
 [Back To Top](#table-of-contents)
 
 ---
-
+<br><br><br><br>
 
 
 
@@ -213,8 +213,6 @@ These files are used to simulate HTTPS termination on the ALB.
 ```bash
 terraform init
 ```
-
----
 
 ## 4. Deploy the Stack
 
@@ -278,7 +276,7 @@ ssh private-ec2
 [Back To Top](#table-of-contents)
 
 ---
-
+<br><br><br><br>
 
 
 
@@ -317,7 +315,7 @@ You should see:
 [Back To Top](#table-of-contents)
 
 ---
-
+<br><br><br><br>
 
 
 
@@ -339,7 +337,8 @@ All resources should now have been successfully deployed to AWS. Pictures for re
 [Back To Top](#table-of-contents)
 
 
-
+---
+<br><br><br><br>
 
 
 ## Cleanup
@@ -352,6 +351,7 @@ terraform destroy -auto-approve
 Make sure to delete your `.pem` key file and clean up any generated certs after testing.
 
 ---
+<br><br><br><br>
 
 ## Final Notes
 
@@ -361,7 +361,7 @@ Make sure to delete your `.pem` key file and clean up any generated certs after 
 
 
 
-
+<br><br><br><br>
 
 
 
