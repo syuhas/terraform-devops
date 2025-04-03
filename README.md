@@ -231,6 +231,11 @@ terraform apply plan.tfplan
 ```
 ![Terraform Apply](https://github.com/user-attachments/assets/94f58d7f-fdd7-4d13-bdaf-a5102d1f24c5)
 
+**Required Outputs**
+
+![Outputs](https://github.com/user-attachments/assets/ae860aae-bc7c-4dfe-b01d-2b10eaaa77c5)
+
+
 ---
 
 ## 5. SSH Access (If Enabled)
