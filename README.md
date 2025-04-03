@@ -25,6 +25,7 @@ The infrastructure supports optional access to the private EC2 instance through 
   - [5. SSH Access (If Enabled)](#5-ssh-access-if-enabled)
 - [Verification](#verification)
 - [Cleanup](#cleanup)
+- [Bonus Section: Deploying with Jenkins](#bonus-section-deploying-with-jenkins)
 ---
 <br><br>
 
@@ -387,3 +388,64 @@ If `openssl` is not recognized:
 ---
 
 [Back To Top](#table-of-contents)
+---
+<br><br><br><br>
+
+## Bonus Section - Deploying with Jenkins
+
+I decided to also go ahead and try deploying this setup with Jenkins just to test out the functionality and make testing easier. Check out the Jenkinsfile and configuration for the backend states in the `jenkins` branch of this repository.
+- [Jenkins Branch](https://github.com/syuhas/terraform-devops/tree/jenkins)
+
+Since I have a dedicated server living on AWS, the server is accessible through guest credentials and my project can be viewed here with read-only permissions:
+- [Jenkins Server](https://jenkins.digitalsteve.net/)
+- Username: `guest`
+- Password: `password`
+- Job Name: `devops-exercise`
+
+With this limited login role, the user can view the project job pipeline and logs.
+
+**Additional Jenkins Configuration**
+
+For all of my Jenkins Terraform deployment, I use a state locking combination of S3 and DynamoDB to track states across my projects. I added this to the Terraform block in the jenkins branch to save states across the project.
+
+```bash
+terraform {
+  backend "s3" {
+    bucket         = "terraform-lock-bucket"
+    key            = "devops-exercise-jenkins/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-lock-table"
+  }
+}
+```
+
+Then a simple pipeline was created and configured to pull directly from GitHub and run the same steps that are being run locally for this project, but with the ability to build and tear down the infrastructure with one click.
+
+![chrome_3K3S8VS1RT](https://github.com/user-attachments/assets/fbe3dfff-4361-4575-bf75-361a9b847de1)
+
+**Deploy** runs a new stack or updates an existing stack.
+**Destroy** tears down the existing stack saved in the state file.
+
+My Jenkins server uses a dynamically provisioned build server with IMDSv2 role attached to perform all of the infrastructure deployment for Terraform. The build server comes pre-built with Terraform as it is spun up viz an initialization script.
+
+**Pipeline Configuration**
+
+![chrome_wpjtRFwnFQ](https://github.com/user-attachments/assets/bbfdd3c0-a3ff-4b4e-b8cc-d39e9c23e9bf)
+
+![chrome_Sw2M9MCO2o](https://github.com/user-attachments/assets/9141b0cc-d847-49e4-b579-8ce2b69e0e37)
+
+
+Once the pipeline is kicked off, it runs the steps as defined in the Jenkinsfile and tears down the build server when finished.
+
+![chrome_y2J3kML91Y](https://github.com/user-attachments/assets/c5ece0ea-ccb4-438b-8645-6bba3536e7fa)
+
+![chrome_fMlDr5MRpR](https://github.com/user-attachments/assets/83608d8a-f23a-4524-8587-b30a2d3ff16e)
+
+This makes testing a bit quicker and easier to build up and tear down in case I need to make any changes or for any issues I ran into when deploying.
+
+<br><br>
+
+This section is obviously completely optional and I only added this project to Jenkins to make testing and deploying easier and quicker.
+
+
+
