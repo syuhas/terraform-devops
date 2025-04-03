@@ -65,12 +65,9 @@ The infrastructure supports optional access to the private EC2 instance through 
 - **GitHub** (source-controlled infrastructure)
 
 
-[Back To Top](#table-of-contents)
-
-
-
-
 ---
+[Back To Top](#table-of-contents)
+<br><br><br><br>
 
 ## Requirements & Installation
 
@@ -89,6 +86,7 @@ This project can be run in either **WSL/Linux** or **Windows**.
 | Git         | `sudo apt install git` | [Git for Windows](https://git-scm.com/download/win)      |
 
 ---
+[Back To Top](#table-of-contents)
 <br><br><br><br>
 
 
@@ -167,9 +165,8 @@ enable_bastion = true
 key_pair_name  = "tfkey"
 ```
 
-[Back To Top](#table-of-contents)
-
 ---
+[Back To Top](#table-of-contents)
 <br><br><br><br>
 
 
@@ -273,9 +270,8 @@ ssh private-ec2
 
 ![SSH](https://github.com/user-attachments/assets/2f037d0c-f33d-4ccf-be21-9dc1abbfb710)
 
-[Back To Top](#table-of-contents)
-
 ---
+[Back To Top](#table-of-contents)
 <br><br><br><br>
 
 
@@ -283,9 +279,6 @@ ssh private-ec2
 
 
 # Verification 
-
-
-
 
 ## Access the Web Server
 
@@ -312,9 +305,9 @@ You should see:
 - HTTP/1.1 200 OK
 - Content from your custom NGINX index page
 
-[Back To Top](#table-of-contents)
 
 ---
+[Back To Top](#table-of-contents)
 <br><br><br><br>
 
 
@@ -334,10 +327,11 @@ All resources should now have been successfully deployed to AWS. Pictures for re
 
 ![EC2](https://github.com/user-attachments/assets/7f83fe41-7dc8-468e-b799-b06585523548)
 
-[Back To Top](#table-of-contents)
+
 
 
 ---
+[Back To Top](#table-of-contents)
 <br><br><br><br>
 
 
@@ -351,6 +345,7 @@ terraform destroy -auto-approve
 Make sure to delete your `.pem` key file and clean up any generated certs after testing.
 
 ---
+[Back To Top](#table-of-contents)
 <br><br><br><br>
 
 ## Final Notes
@@ -360,7 +355,7 @@ Make sure to delete your `.pem` key file and clean up any generated certs after 
 - SSL setup uses a realistic ALB-terminated pattern for modern web architectures.
 
 
-
+---
 <br><br><br><br>
 
 
@@ -375,5 +370,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 If `openssl` is not recognized:
 - Ensure OpenSSL is installed (use [Win64 OpenSSL](https://slproweb.com/products/Win32OpenSSL.html))
 - Add the `bin` folder to your system PATH (e.g., `C:\Program Files\OpenSSL-Win64\bin`)
+
+---
 
 [Back To Top](#table-of-contents)
