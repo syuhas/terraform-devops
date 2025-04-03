@@ -64,7 +64,7 @@ This project can be run in either **WSL/Linux** or **Windows**.
 
 ---
 
-### AWS Permissions
+### 🔑 AWS Permissions
 
 An AWS user (or role) will need to be utilized via the CLI in order to use Terraform locally. I have included both a scoped policy and a broader policy (iam_policies/scoped_policy.json, iam_policies/broad_policy.json). Create an inline or managed policy with either of policy jsons and attach to the resource. (**NOTE** In production, these would be conditionally scoped further to align with least priviledge, but for testing the policies are both scoped to all resources.)
 
@@ -94,7 +94,6 @@ export AWS_PROFILE=terraform-role
 
 Then continue with Terraform steps.
 
----
 ---
 ---
 
@@ -241,7 +240,6 @@ ssh private-ec2
 
 ---
 ---
----
 
 # ✅ Verification
 
@@ -268,7 +266,7 @@ You should see:
 
 ---
 
-## Cleanup
+## 🧹 Cleanup
 
 To destroy all resources:
 ```bash
