@@ -63,7 +63,8 @@ The infrastructure supports optional access to the private EC2 instance through 
 
 ---
 
-## ⚙️ Requirements & Installation
+## ⚙️ 
+## Requirements & Installation
 
 This project can be run in either **WSL/Linux** or **Windows**.
 
