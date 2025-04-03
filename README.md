@@ -253,11 +253,11 @@ If `enable_bastion = true`, you can SSH into your private EC2 instance via the b
 
 ```bash
 ssh -i your-key.pem ec2-user@<bastion-public-ip>
-# Then from inside bastion:
+# From inside the bastion instance:
 ssh -i your-key.pem ec2-user@<private-ip>
 ```
 
-Or directly from your local machine using jump host syntax:
+Or directly from your local machine using jump host:
 ```bash
 ssh -i your-key.pem -J ec2-user@<bastion-ip> ec2-user@<private-ip>
 ```
