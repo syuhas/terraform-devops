@@ -23,7 +23,8 @@ The infrastructure supports optional access to the private EC2 instance through 
 - [Cleanup](#cleanup)
 ---
 
-## 🤔 Assumptions Made
+## 🤔 
+## Assumptions Made
 
 1. **NAT Gateway Required for Private Subnet**
    - *Why:* The instance is in a private subnet, and does not have a public IP.
@@ -51,7 +52,8 @@ The infrastructure supports optional access to the private EC2 instance through 
 
 ---
 
-## ⚒️ Tools Used
+## ⚒️ 
+## Tools Used
 
 - **Terraform** v1.11.3
 - **Amazon Linux 2023** AMI
@@ -79,7 +81,8 @@ This project can be run in either **WSL/Linux** or **Windows**.
 
 ---
 
-### 🔑 AWS Permissions
+### 🔑 
+### AWS Permissions
 
 An AWS user (or role) will need to be utilized via the CLI in order to use Terraform locally. I have included both a scoped policy and a broader policy (iam_policies/scoped_policy.json, iam_policies/broad_policy.json). Create an inline or managed policy with either of policy jsons and attach to the resource. (**NOTE** In production, these would be conditionally scoped further to align with least priviledge, but for testing the policies are both scoped to all resources.)
 
@@ -112,7 +115,8 @@ Then continue with Terraform steps.
 ---
 
 
-### 🔑 Bastion Host Configuration (optional)
+### 🔑 
+### Bastion Host Configuration (optional)
 
 In order to use the optional Bastion host to SSH into the private instance, a `key pair` is required and `enable_bastion` flag will need to be set in the optional tfvars file.
 
@@ -152,7 +156,8 @@ key_pair_name  = "tfkey"
 ---
 ---
 
-# 🚀 Terraform Steps
+# 🚀 
+# Terraform Steps
 
 ## 1. Clone the Repo
 ```bash
@@ -263,7 +268,8 @@ ssh private-ec2
 ---
 ---
 
-# ✅ Verification
+# ✅ 
+# Verification
 
 
 ## Access the Web Server
@@ -308,7 +314,8 @@ All resources should now have been successfully deployed to AWS. Pictures for re
 
 ![EC2](https://github.com/user-attachments/assets/7f83fe41-7dc8-468e-b799-b06585523548)
 
-## 🧹 Cleanup
+## 🧹 
+## Cleanup
 
 To destroy all resources:
 ```bash
