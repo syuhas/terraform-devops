@@ -61,6 +61,7 @@ The infrastructure supports optional access to the private EC2 instance through 
 - **OpenSSL** (used to generate the self-signed certificate)
 - **GitHub** (source-controlled infrastructure)
 
+- [Back To Top](#table-of-contents)
 ---
 
 ## ⚙️ 
@@ -113,6 +114,7 @@ export AWS_PROFILE=terraform-role
 
 Then continue with Terraform steps.
 
+- [Back To Top](#table-of-contents)
 ---
 
  
@@ -153,7 +155,7 @@ enable_bastion = true
 key_pair_name  = "tfkey"
 ```
 
-
+- [Back To Top](#table-of-contents)
 ---
 ---
 
@@ -266,6 +268,7 @@ ssh private-ec2
 
 ![SSH](https://github.com/user-attachments/assets/2f037d0c-f33d-4ccf-be21-9dc1abbfb710)
 
+- [Back To Top](#table-of-contents)
 ---
 ---
 
@@ -297,6 +300,7 @@ You should see:
 - HTTP/1.1 200 OK
 - Content from your custom NGINX index page
 
+- [Back To Top](#table-of-contents)
 ---
 
 ## View Resources in AWS
@@ -314,6 +318,7 @@ All resources should now have been successfully deployed to AWS. Pictures for re
 
 ![EC2](https://github.com/user-attachments/assets/7f83fe41-7dc8-468e-b799-b06585523548)
 
+- [Back To Top](#table-of-contents)
 
 ## Cleanup
 ## 🧹 
@@ -332,3 +337,5 @@ Make sure to delete your `.pem` key file and clean up any generated certs after 
 - This project follows infrastructure-as-code best practices using Terraform.
 - All modules are configurable, optional features like bastion access are toggleable.
 - SSL setup uses a realistic ALB-terminated pattern for modern web architectures.
+
+- [Back To Top](#table-of-contents)
