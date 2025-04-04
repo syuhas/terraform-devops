@@ -436,7 +436,7 @@ Then a simple pipeline was created and configured to pull directly from GitHub a
 **Deploy** runs a new stack or updates an existing stack.
 **Destroy** tears down the existing stack saved in the state file.
 
-My Jenkins server uses a dynamically provisioned build server with IMDSv2 role attached to perform all of the infrastructure deployment for Terraform. The build server comes pre-built with Terraform as it is spun up viz an initialization script.
+My Jenkins server uses a dynamically provisioned build server with IMDSv2 role attached to perform all of the infrastructure deployment for Terraform. The build server comes pre-built with Terraform as it is spun up via an initialization script.
 
 **Pipeline Configuration**
 
